@@ -183,7 +183,7 @@ class Bradesco extends AbstractRemessa implements RemessaContract
         $this->add(71, 82, Util::formatCnab('9', $boleto->getNossoNumero(), 12));
         $this->add(83, 92, Util::formatCnab('9', 0, 10, 2));
         $this->add(93, 93, '2'); // 1 = Banco emite e Processa o registro. 2 = Cliente emite e o Banco somente processa o registro
-        $this->add(94, 94, ''); // N= Não registra na cobrança. Diferente de N registra e emite Boleto.
+        $this->add(94, 94, $boleto->getCarteira() === '03' ? 'N' : ''); // N= Não registra na cobrança. Diferente de N registra e emite Boleto.
         $this->add(95, 104, '');
         $this->add(105, 105, '');
         $this->add(106, 106, '2'); // 1 = emite aviso, e assume o endereço do Pagador constante do Arquivo-Remessa; 2 = não emite aviso;
