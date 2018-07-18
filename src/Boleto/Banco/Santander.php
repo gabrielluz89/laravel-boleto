@@ -97,6 +97,19 @@ class Santander  extends AbstractBoleto implements BoletoContract
      *
      * @return AbstractBoleto
      */
+    public function setLinhaDigitavel($linha_digitavel)
+    {
+        $this->campoLinhaDigitavel = $linha_digitavel;
+        return $this;
+    }
+    
+    /**
+     * Define o código do cliente.
+     *
+     * @param int $codigoCliente
+     *
+     * @return AbstractBoleto
+     */
     public function setCodigoCliente($codigoCliente)
     {
         $this->codigoCliente = $codigoCliente;
