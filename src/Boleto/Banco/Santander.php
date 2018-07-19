@@ -44,7 +44,7 @@ class Santander  extends AbstractBoleto implements BoletoContract
      *
      * @var array
      */
-    protected $carteirasNomes = ['101' => '101 - Cobrança Simples ECR', '102' => '102 - Cobrança Simples CSR', '201' => '201 - Penhor'];
+    protected $carteirasNomes = ['101' => 'Cobrança Simples ECR', '102' => 'Cobrança Simples CSR', '201' => 'Penhor'];
     /**
      * Define o valor do IOS - Seguradoras (Se 7% informar 7. Limitado a 9%) - Demais clientes usar 0 (zero)
      *
@@ -72,13 +72,13 @@ class Santander  extends AbstractBoleto implements BoletoContract
      *
      * @return string
      */
-//     public function getAgenciaCodigoBeneficiario()
-//     {
-//         $agencia = $this->getAgenciaDv() !== null ? $this->getAgencia() . '-' . $this->getAgenciaDv() : $this->getAgencia();
-//         $codigoCliente = $this->getCodigoCliente();
+    public function getAgenciaCodigoBeneficiario()
+    {
+        $agencia = $this->getAgenciaDv() !== null ? $this->getAgencia() . '-' . $this->getAgenciaDv() : $this->getAgencia();
+        $codigoCliente = $this->getCodigoCliente();
 
-//         return $agencia . ' / ' . $codigoCliente;
-//     }
+        return $agencia . ' / ' . $codigoCliente;
+    }
 
     /**
      * Retorna o código do cliente.
