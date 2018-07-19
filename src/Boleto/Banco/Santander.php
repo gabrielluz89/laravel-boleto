@@ -93,7 +93,7 @@ class Santander  extends AbstractBoleto implements BoletoContract
     /**
      * Define a linha digitavel.
      *
-     * @param string $codigoCliente
+     * @param string $linha_digitavel
      *
      * @return Santander
      */
