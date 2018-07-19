@@ -6,7 +6,7 @@ use Eduardokum\LaravelBoleto\CalculoDV;
 use Eduardokum\LaravelBoleto\Contracts\Boleto\Boleto as BoletoContract;
 use Eduardokum\LaravelBoleto\Util;
 
-class Santander  extends AbstractBoleto implements BoletoContract
+class SantanderAvenida  extends AbstractBoleto implements BoletoContract
 {
     public function __construct(array $params = [])
     {
