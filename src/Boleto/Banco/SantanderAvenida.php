@@ -91,11 +91,11 @@ class SantanderAvenida  extends AbstractBoleto implements BoletoContract
     }
 
     /**
-     * Define o código do cliente.
+     * Define a linha digitavel.
      *
-     * @param int $codigoCliente
+     * @param string $linha_digitavel
      *
-     * @return AbstractBoleto
+     * @return SantanderAvenida
      */
     public function setLinhaDigitavel($linha_digitavel)
     {
