@@ -38,7 +38,7 @@ class PdfAvenida extends Pdf
         $this->Cell(0, 6, $this->boleto[$i]->getLinhaDigitavel(), 'B', 1, 'R');
 
         $this->SetFont($this->PadraoFont, '', $this->fdes);
-        $this->Cell(0, $this->desc, $this->_('Pagador'), 'TLR', 1);
+        $this->Cell(0, $this->desc, $this->_('Beneficiário'), 'TLR', 1);
         $texto_beneficiario = $this->boleto[$i]->getBeneficiario()->getNome();
         $texto_beneficiario .= " ".$this->boleto[$i]->getBeneficiario()->getDocumento();
         $texto_beneficiario .= " - ".$this->boleto[$i]->getBeneficiario()->getEndereco();
