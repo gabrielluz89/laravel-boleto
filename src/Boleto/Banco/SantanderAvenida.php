@@ -25,5 +25,10 @@ class SantanderAvenida extends Santander
         $conta = $this->getContaDv() !== null ? $this->getConta() . '-' . $this->getContaDv() : $this->getConta();
         return $agencia . ' / ' . $conta;
     }
+    
+    public function setCampoCodigoBarras($codigo) {
+        $this->campoCodigoBarras = $codigo;
+        return $this;
+    }
 
 }
