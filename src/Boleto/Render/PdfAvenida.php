@@ -47,14 +47,14 @@ class PdfAvenida extends Pdf
         $texto_beneficiario .= ", ".$this->boleto[$i]->getBeneficiario()->getUf();
         $texto_beneficiario .= ", ".$this->boleto[$i]->getBeneficiario()->getCep();
         $this->SetFont($this->PadraoFont, 'B', $this->fcel);
-        $this->Cell(0, $this->cell, $this->_($texto_beneficiario), 'BLR', 1);
+        $this->textFitCell(170, $this->cell, $this->_($texto_beneficiario), 'BLR', 1, 'L');
 
         $this->SetFont($this->PadraoFont, '', $this->fdes);
-        $this->Cell(75, $this->desc, $this->_(''), 'TLR');
-        $this->Cell(35, $this->desc, $this->_('Agencia/Codigo do beneficiário'), 'TR');
-        $this->Cell(10, $this->desc, $this->_('Espécie'), 'TR');
-        $this->Cell(15, $this->desc, $this->_('Quantidade'), 'TR');
-        $this->Cell(35, $this->desc, $this->_('Nosso Numero'), 'TR', 1);
+        $this->Cell(75, $this->desc, $this->_(''), 'LR');
+        $this->Cell(35, $this->desc, $this->_('Agencia/Codigo do beneficiário'), 'R');
+        $this->Cell(10, $this->desc, $this->_('Espécie'), 'R');
+        $this->Cell(15, $this->desc, $this->_('Quantidade'), 'R');
+        $this->Cell(35, $this->desc, $this->_('Nosso Numero'), 'R', 1);
         $this->SetFont($this->PadraoFont, 'B', $this->fcel);        
         
         $this->textFitCell(75, $this->cell, $this->_(''), 'LR', 0, 'L');
