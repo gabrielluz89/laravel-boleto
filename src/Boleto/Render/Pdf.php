@@ -13,29 +13,29 @@ class Pdf extends AbstractPdf implements PdfContract
     const OUTPUT_SAVE = 'F';
     const OUTPUT_STRING = 'S';
 
-    private $PadraoFont = 'Arial';
+    protected $PadraoFont = 'Arial';
     /**
      * @var BoletoContract[]
      */
-    private $boleto = array();
+    protected $boleto = array();
 
     /**
      * @var bool
      */
-    private $print = false;
+    protected $print = false;
 
     /**
      * @var bool
      */
-    private $showInstrucoes = true;
+    protected $showInstrucoes = true;
 
 
-    private $desc = 3; // tamanho célula descrição
-    private $cell = 4; // tamanho célula dado
-    private $fdes = 6; // tamanho fonte descrição
-    private $fcel = 8; // tamanho fonte célula
-    private $small = 0.2; // tamanho barra fina
-    private $totalBoletos = 0;
+    protected $desc = 3; // tamanho célula descrição
+    protected $cell = 4; // tamanho célula dado
+    protected $fdes = 6; // tamanho fonte descrição
+    protected $fcel = 8; // tamanho fonte célula
+    protected $small = 0.2; // tamanho barra fina
+    protected $totalBoletos = 0;
 
     public function __construct()
     {
@@ -129,7 +129,7 @@ class Pdf extends AbstractPdf implements PdfContract
      *
      * @return $this
      */
-    protected function Topo($i)
+    protected function Topo($i, $pontilhado = true)
     {
         $this->Image($this->boleto[$i]->getLogoBanco(), 20, ($this->GetY() - 2), 28);
         $this->Cell(29, 6, '', 'B');
@@ -198,7 +198,7 @@ class Pdf extends AbstractPdf implements PdfContract
             $pulaLinha = $this->listaLinhas($this->boleto[$i]->getDescricaoDemonstrativo(), $pulaLinha);
         }
 
-        $this->traco('Corte na linha pontilhada', $pulaLinha, 10);
+        if ($pontilhado) $this->traco('Corte na linha pontilhada', $pulaLinha, 10);
 
         return $this;
     }
@@ -453,20 +453,26 @@ class Pdf extends AbstractPdf implements PdfContract
             throw new \Exception('Nenhum Boleto adicionado');
         }
 
-        for ($i = 0; $i < $this->totalBoletos; $i++) {
-            $this->SetDrawColor('0', '0', '0');
-            $this->AddPage();
-            $this->instrucoes($i)->logoEmpresa($i)->Topo($i)->Bottom($i)->codigoBarras($i);
-        }
+        $this->montarEstrutura();
+
         if ($dest == self::OUTPUT_SAVE) {
             $this->Output($save_path, $dest, $this->print);
             return $save_path;
         }
+
         if ($nameFile == null) {
             $nameFile = str_random(32);
         }
         
         return $this->Output($nameFile . '.pdf', $dest, $this->print);
+    }
+
+    protected function montarEstrutura() {
+        for ($i = 0; $i < $this->totalBoletos; $i++) {
+            $this->SetDrawColor('0', '0', '0');
+            $this->AddPage();
+            $this->instrucoes($i)->logoEmpresa($i)->Topo($i)->Bottom($i)->codigoBarras($i);
+        }
     }
 
     /**
@@ -475,7 +481,7 @@ class Pdf extends AbstractPdf implements PdfContract
      *
      * @return int
      */
-    private function listaLinhas($lista, $pulaLinha)
+    protected function listaLinhas($lista, $pulaLinha)
     {
         foreach ($lista as $d) {
             $pulaLinha -= 2;

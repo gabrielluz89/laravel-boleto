@@ -6,7 +6,8 @@ use Eduardokum\LaravelBoleto\Util;
 
 class SantanderAvenida extends Santander
 {
-
+    private $demonstrativo = [];
+    private $showDemonstrativo = false;
     /**
      * Define os nomes das carteiras para exibição no boleto
      *
@@ -29,6 +30,28 @@ class SantanderAvenida extends Santander
     public function setCampoCodigoBarras($codigo) {
         $this->campoCodigoBarras = $codigo;
         return $this;
+    }
+
+    public function showDemonstrativo() {
+        $this->showDemonstrativo = true;
+        return $this;
+    }
+
+    public function hideDemonstrativo() {
+        $this->showDemonstrativo = false;
+        return $this;
+    }
+
+    public function getShowDemonstrativo() {
+        return $this->showDemonstrativo;
+    }
+
+    public function setDemonstrativo(array $demonstrativo) {
+        $this->demonstrativo = $demonstrativo;
+    }
+
+    public function getDemonstrativoInfo($info) {
+        return isset($this->demonstrativo[$info]) ? strval($this->demonstrativo[$info]) : '';
     }
 
 }
