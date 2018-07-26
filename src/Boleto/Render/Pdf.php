@@ -129,7 +129,7 @@ class Pdf extends AbstractPdf implements PdfContract
      *
      * @return $this
      */
-    protected function Topo($i, $pontilhado = true)
+    protected function Topo($i)
     {
         $this->Image($this->boleto[$i]->getLogoBanco(), 20, ($this->GetY() - 2), 28);
         $this->Cell(29, 6, '', 'B');
@@ -198,7 +198,7 @@ class Pdf extends AbstractPdf implements PdfContract
             $pulaLinha = $this->listaLinhas($this->boleto[$i]->getDescricaoDemonstrativo(), $pulaLinha);
         }
 
-        if ($pontilhado) $this->traco('Corte na linha pontilhada', $pulaLinha, 10);
+        $this->traco('Corte na linha pontilhada', $pulaLinha, 10);
 
         return $this;
     }

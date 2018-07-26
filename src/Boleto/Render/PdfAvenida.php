@@ -28,6 +28,89 @@ class PdfAvenida extends Pdf
         }
     }
 
+    protected function Topo($i)
+    {
+        $this->Image($this->boleto[$i]->getLogoBanco(), 20, ($this->GetY() - 2), 28);
+        $this->Cell(29, 6, '', 'B');
+        $this->SetFont('', 'B', 13);
+        $this->Cell(15, 6, $this->boleto[$i]->getCodigoBancoComDv(), 'LBR', 0, 'C');
+        $this->SetFont('', 'B', 10);
+        $this->Cell(0, 6, $this->boleto[$i]->getLinhaDigitavel(), 'B', 1, 'R');
+
+        $this->SetFont($this->PadraoFont, '', $this->fdes);
+        $this->Cell(0, $this->desc, $this->_('Pagador'), 'TLR', 1);
+        $texto_beneficiario = $this->boleto[$i]->getBeneficiario()->getNome();
+        $texto_beneficiario .= " ".$this->boleto[$i]->getBeneficiario()->getDocumento();
+        $texto_beneficiario .= " - ".$this->boleto[$i]->getBeneficiario()->getEndereco();
+        $texto_beneficiario .= ", ".$this->boleto[$i]->getBeneficiario()->getCidade();
+        $texto_beneficiario .= ", ".$this->boleto[$i]->getBeneficiario()->getBairro();
+        $texto_beneficiario .= ", ".$this->boleto[$i]->getBeneficiario()->getUf();
+        $texto_beneficiario .= ", ".$this->boleto[$i]->getBeneficiario()->getCep();
+        $this->SetFont($this->PadraoFont, 'B', $this->fcel);
+        $this->Cell(0, $this->cell, $this->_($texto_beneficiario), 'BLR', 1);
+
+        $this->SetFont($this->PadraoFont, '', $this->fdes);
+        $this->Cell(75, $this->desc, $this->_(''), 'TLR');
+        $this->Cell(35, $this->desc, $this->_('Agencia/Codigo do beneficiário'), 'TR');
+        $this->Cell(10, $this->desc, $this->_('Espécie'), 'TR');
+        $this->Cell(15, $this->desc, $this->_('Quantidade'), 'TR');
+        $this->Cell(35, $this->desc, $this->_('Nosso Numero'), 'TR', 1);
+        $this->SetFont($this->PadraoFont, 'B', $this->fcel);        
+        
+        $this->textFitCell(75, $this->cell, $this->_(''), 'LR', 0, 'L');
+
+        $this->Cell(35, $this->cell, $this->_($this->boleto[$i]->getAgenciaCodigoBeneficiario()), 'R');
+        $this->Cell(10, $this->cell, $this->_('R$'), 'R');
+        $this->Cell(15, $this->cell, $this->_(''), 'R');
+        $this->Cell(35, $this->cell, $this->_($this->boleto[$i]->getNossoNumeroBoleto()), 'R', 1, 'R');
+
+        $this->SetFont($this->PadraoFont, '', $this->fdes);
+        $this->Cell(50, $this->desc, $this->_('Número do Documento'), 'TLR');
+        $this->Cell(40, $this->desc, $this->_('CPF/CNPJ'), 'TR');
+        $this->Cell(30, $this->desc, $this->_('Vencimento'), 'TR');
+        $this->Cell(50, $this->desc, $this->_('Valor do Documento'), 'TR', 1);
+
+        $this->SetFont($this->PadraoFont, 'B', $this->fcel);
+        $this->Cell(50, $this->cell, $this->_($this->boleto[$i]->getNumeroDocumento()), 'LR');
+        $this->Cell(40, $this->cell, $this->_($this->boleto[$i]->getBeneficiario()->getDocumento(), '##.###.###/####-##'), 'R');
+        $this->Cell(30, $this->cell, $this->_($this->boleto[$i]->getDataVencimento()->format('d/m/Y')), 'R');
+        $this->Cell(50, $this->cell, $this->_(Util::nReal($this->boleto[$i]->getValor())), 'R', 1, 'R');
+
+        $this->SetFont($this->PadraoFont, '', $this->fdes);
+        $this->Cell(30, $this->desc, $this->_('(-) Descontos/Abatimentos'), 'TLR');
+        $this->Cell(30, $this->desc, $this->_('(-) Outras Deduções'), 'TR');
+        $this->Cell(30, $this->desc, $this->_('(+) Mora Multa'), 'TR');
+        $this->Cell(30, $this->desc, $this->_('(+) Acréscimos'), 'TR');
+        $this->Cell(50, $this->desc, $this->_('(=) Valor Cobrado'), 'TR', 1);
+
+        $this->SetFont($this->PadraoFont, 'B', $this->fcel);
+        $this->Cell(30, $this->cell, $this->_(''), 'LR');
+        $this->Cell(30, $this->cell, $this->_(''), 'R');
+        $this->Cell(30, $this->cell, $this->_(''), 'R');
+        $this->Cell(30, $this->cell, $this->_(''), 'R');
+        $this->Cell(50, $this->cell, $this->_(''), 'R', 1, 'R');
+
+        $this->SetFont($this->PadraoFont, '', $this->fdes);
+        $this->Cell(0, $this->desc, $this->_('Pagador'), 'TLR', 1);
+
+        $this->SetFont($this->PadraoFont, 'B', $this->fcel);
+        $this->Cell(0, $this->cell, $this->_($this->boleto[$i]->getPagador()->getNomeDocumento()), 'BLR', 1);
+
+        $this->SetFont($this->PadraoFont, '', $this->fdes);
+        $this->Cell(100, $this->desc, $this->_('Demonstrativo'), 0, 0, 'L');
+        $this->Cell(0, $this->desc, $this->_('Autenticação mecânica'), 0, 1, 'R');
+        $this->Ln(2);
+
+        $pulaLinha = 26;
+
+        $this->SetFont($this->PadraoFont, 'B', $this->fcel);
+        if (count($this->boleto[$i]->getDescricaoDemonstrativo()) > 0) {
+            $pulaLinha = $this->listaLinhas($this->boleto[$i]->getDescricaoDemonstrativo(), $pulaLinha);
+        }
+
+        return $this;
+    }
+
     protected function demonstrativo($i)
     {
         if($this->boleto[$i]->getShowDemonstrativo()) {
