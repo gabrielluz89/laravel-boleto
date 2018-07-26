@@ -132,7 +132,7 @@ class PdfAvenida extends Pdf
             $this->SetFont($this->PadraoFont, '', $this->fcel);
             $this->Cell(40, $this->cell, $this->_('Quantidade de parcelas'), 0, 0);
             $this->SetFont($this->PadraoFont, 'B', $this->fcel);
-            $this->Cell(0, $this->cell, $this->_($this->boleto[$i]->getDemonstrativoInfo('parcela')), 0, 1);
+            $this->Cell(0, $this->cell, $this->_($this->boleto[$i]->getDemonstrativoInfo('total_parcelas')), 0, 1);
             $this->SetFont($this->PadraoFont, '', $this->fcel);
             $this->Cell(40, $this->cell, $this->_('Valor de cada parcela'), 0, 0);
             $this->SetFont($this->PadraoFont, 'B', $this->fcel);
