@@ -116,8 +116,8 @@ class PdfAvenida extends Pdf
         if($this->boleto[$i]->getShowDemonstrativo()) {
             $this->SetFont($this->PadraoFont, '', 6);
             $this->Cell(0, $this->desc, $this->_('Prezado(a) cliente '.$this->boleto[$i]->getDemonstrativoInfo('nome_cliente')), 0, 1, 'L');
-            $this->Cell(0, $this->desc, $this->_('Conforme a negociação formalizada com o '.$this->boleto[$i]->getDemonstrativoInfo('fantasia').' em '.$this->boleto[$i]->getDemonstrativoInfo('data_negociacao').', seguem as instruções para pagamento nas lojas.'), 0, 1, 'L');
-            $this->Cell(0, $this->desc, $this->_(''.$this->boleto[$i]->getDemonstrativoInfo('nome_loja').', referente ao pagamento da parcela do acordo citado abaixo com vencimento em '.$this->boleto[$i]->getDemonstrativoInfo('vencimento').' no valor de R$ '.$this->boleto[$i]->getDemonstrativoInfo('valor_parcela')), 0, 1, 'L');
+            $this->Cell(0, $this->desc, $this->_('Conforme a negociação formalizada com o '.$this->boleto[$i]->getDemonstrativoInfo('fantasia').' em '.$this->boleto[$i]->getDemonstrativoInfo('data_negociacao').', seguem as instruções para pagamento '), 0, 1, 'L');
+            $this->Cell(0, $this->desc, $this->_('da parcela do acordo citado abaixo com vencimento em '.$this->boleto[$i]->getDemonstrativoInfo('vencimento').' no valor de R$ '.$this->boleto[$i]->getDemonstrativoInfo('valor_parcela')), 0, 1, 'L');
             $this->Ln(2);
             $this->Cell(0, $this->desc, $this->_('Acordo referente ao(s) contrato(s): '.$this->boleto[$i]->getDemonstrativoInfo('contratos')), 0, 1, 'L');
             $this->Ln(2);
@@ -143,7 +143,7 @@ class PdfAvenida extends Pdf
             $this->Cell(0, $this->cell, $this->_($this->boleto[$i]->getDemonstrativoInfo('vencimentos')), 0, 1);
             $this->SetFont($this->PadraoFont, '', $this->fcel);
             $this->Ln(2);
-            $this->Cell(0, $this->desc, $this->_('Este acordo conetempla unicamente a(s) parcela(s) abaixo relacionada(s)'), 0, 1, 'L');
+            $this->Cell(0, $this->desc, $this->_('Este acordo contempla unicamente a(s) parcela(s) abaixo relacionada(s)'), 0, 1, 'L');
             $this->Ln(2); 
             $this->Ln(2); 
 
